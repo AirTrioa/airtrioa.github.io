@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SpringMVC请求参数全面解析：从入门到精通 | airtrioa's blog</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=1.12.2"><!-- inject head--><link rel="canonical" href="http://example.com/posts/5442ff04.html"><link rel="stylesheet" href="https://cdn2.codesign.qq.com/icons/7pOrz0WXB5ZWJPX/latest/iconfont.css"><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="SpringMVC请求参数全面解析：从入门到精通在日常的Web开发中，处理HTTP请求参数是我们最常面对的任务之一。SpringMVC作为Java生态中最流行的Web框架，提供了丰富而灵活的参数绑定机制。本文将全面解析SpringMVC中获取请求参数的各种方式，帮助你更好地理解和应用这些技术。 HT"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="airtrioa's blog"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.ico"><link rel="apple-touch-icon" href="/img/pwa/favicon.ico" sizes="180x180"><script>console.log(
+    "%c Program: Hexo %c Theme: Solitude %c Version: v1.12.2",
+    "border-radius:5px 0 0 5px;padding: 5px 10px;color:white;background:#ff3842;",
+    "padding: 5px 10px;color:white;background:#3e9f50;",
+    "padding: 5px 10px;color:white;background:#0084ff;border-radius:0 5px 5px 0",
+)
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+    
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+    
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+    
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+    
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+        
+                if (name && keyObj[name]) return
+        
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+        }
+    })()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2021-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: {"limit":50,"author":"作者: airtrioa","link":"链接: ","source":"来源: airtrioa's blog","info":"著作权归作者所有。 商业转载请联系作者获得授权，非商业转载请注明出处。"},
+    highlight: {
+        enable: true,
+        limit: 1000,
+        expand: true,
+        copy: true,
+        syntax: 'highlight.js'
+    },
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        sayhello: {
+            morning: '一日之计在于晨',
+            noon: '吃饱了才有力气干活',
+            afternoon: '集中精力，攻克难关',
+            night: '不要太劳累了，早睡更健康',
+            goodnight: '睡个好觉，保证精力充沛',
+        },
+        sayhello2: [],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    post_ai: false,
+    right_menu: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- loading--><!-- console--><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude st-close-fill"></i></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude st-moon-clear-fill"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude st-side-bar-fill"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude st-moon-clear-fill"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  st-folder-fill"></i><span>文章列表</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  st-price-tag-fill"></i><span>全部标签</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/Java/">Java<sup>3</sup></a><a href="/tags/SpringCache/">SpringCache<sup>2</sup></a><a href="/tags/Feign/">Feign<sup>1</sup></a><a href="/tags/HTTP%E5%AE%A2%E6%88%B7%E7%AB%AF/">HTTP客户端<sup>2</sup></a><a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务<sup>1</sup></a><a href="/tags/OpenFeign/">OpenFeign<sup>1</sup></a><a href="/tags/RestTemplate/">RestTemplate<sup>1</sup></a><a href="/tags/SpringBoot/">SpringBoot<sup>7</sup></a><a href="/tags/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/">配置管理<sup>2</sup></a><a href="/tags/MySQL/">MySQL<sup>1</sup></a><a href="/tags/ShardingJdbc/">ShardingJdbc<sup>1</sup></a><a href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">异常处理<sup>1</sup></a><a href="/tags/Web%E5%BC%80%E5%8F%91/">Web开发<sup>4</sup></a><a href="/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">最佳实践<sup>1</sup></a><a href="/tags/%E5%90%AF%E5%8A%A8%E6%9C%BA%E5%88%B6/">启动机制<sup>1</sup></a><a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化<sup>1</sup></a><a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">生命周期<sup>1</sup></a><a href="/tags/%E5%A4%96%E9%83%A8%E5%8C%96%E9%85%8D%E7%BD%AE/">外部化配置<sup>1</sup></a><a href="/tags/Kubernetes/">Kubernetes<sup>1</sup></a><a href="/tags/%E6%89%A9%E5%B1%95%E7%82%B9/">扩展点<sup>1</sup></a><a href="/tags/Hook%E6%9C%BA%E5%88%B6/">Hook机制<sup>1</sup></a><a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计<sup>1</sup></a><a href="/tags/SpringMVC/">SpringMVC<sup>2</sup></a><a href="/tags/%E6%B3%A8%E8%A7%A3/">注解<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/">数据绑定<sup>1</sup></a><a href="/tags/Java-Web/">Java Web<sup>1</sup></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发<sup>1</sup></a><a href="/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/">拦截器<sup>1</sup></a><a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/">过滤器<sup>1</sup></a><a href="/tags/HTTP%E5%8D%8F%E8%AE%AE/">HTTP协议<sup>1</sup></a><a href="/tags/MIME%E7%B1%BB%E5%9E%8B/">MIME类型<sup>1</sup></a></div></div></div></div><!-- keyboard--><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a id="site-name" href="/" title="返回博客主页"><span class="title">Airtrioa</span></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">SpringMVC请求参数全面解析：从入门到精通</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  st-folder-fill"></i><span>文章列表</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  st-price-tag-fill"></i><span>全部标签</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude st-arrow-up-line"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude st-menu-line"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/default.avif" alt="SpringMVC请求参数全面解析：从入门到精通"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringMVC/"><span class="tags-name tags-punctuation">SpringMVC</span></a><a class="post-meta__tags" href="/tags/Java-Web/"><span class="tags-name tags-punctuation">Java Web</span></a><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"><span class="tags-name tags-punctuation">后端开发</span></a></div></div></div></div><h1 class="post-title">SpringMVC请求参数全面解析：从入门到精通</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="SpringMVC请求参数全面解析：从入门到精通"><a href="#SpringMVC请求参数全面解析：从入门到精通" class="headerlink" title="SpringMVC请求参数全面解析：从入门到精通"></a>SpringMVC请求参数全面解析：从入门到精通</h1><p>在日常的Web开发中，处理HTTP请求参数是我们最常面对的任务之一。SpringMVC作为Java生态中最流行的Web框架，提供了丰富而灵活的参数绑定机制。本文将全面解析SpringMVC中获取请求参数的各种方式，帮助你更好地理解和应用这些技术。</p>
+<h2 id="HTTP请求参数的五大类型"><a href="#HTTP请求参数的五大类型" class="headerlink" title="HTTP请求参数的五大类型"></a>HTTP请求参数的五大类型</h2><p>从HTTP请求中获取数据，主要可以分为以下五种类型：</p>
+<ol>
+<li><strong>Body</strong> - 请求体中的数据</li>
+<li><strong>URL</strong> - URL路径中的参数</li>
+<li><strong>Params</strong> - 查询参数或表单数据</li>
+<li><strong>Header</strong> - 请求头信息</li>
+<li><strong>Cookie</strong> - Cookie数据</li>
+</ol>
+<p>接下来，我们将逐一详细探讨每种参数的处理方式。</p>
+<h2 id="1-Body参数-RequestBody"><a href="#1-Body参数-RequestBody" class="headerlink" title="1. Body参数 - @RequestBody"></a>1. Body参数 - @RequestBody</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>当需要接收JSON格式的复杂数据时，<code>@RequestBody</code>是我们最常用的注解。它要求请求的<code>Content-Type</code>设置为<code>application/json</code>，Spring会自动将JSON字符串转换为对应的Java对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/api/index/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">handleRequestBody</span><span class="params">(<span class="meta">@RequestBody</span> TestRequest request)</span> &#123;</span><br><span class="line">    LOGGER.info(<span class="string">&quot;RequestBody接收到的数据: [&#123;&#125;]&quot;</span>, request);</span><br><span class="line">    <span class="keyword">return</span> request.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h3><p>这个功能的实现涉及到两个核心组件：</p>
+<ul>
+<li><strong>参数处理器</strong>：<code>RequestResponseBodyMethodProcessor</code></li>
+<li><strong>转换器</strong>：<code>MappingJackson2HttpMessageConverter</code></li>
+</ul>
+<p>底层依赖Jackson库进行JSON序列化和反序列化。如果需要自定义序列化行为，可以通过配置这个Converter来实现。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>接收前端提交的复杂数据结构</li>
+<li>RESTful API中的POST&#x2F;PUT请求</li>
+<li>微服务间的数据传输</li>
+</ul>
+<h2 id="2-URL参数-路径变量"><a href="#2-URL参数-路径变量" class="headerlink" title="2. URL参数 - 路径变量"></a>2. URL参数 - 路径变量</h2><h3 id="PathVariable-路径变量"><a href="#PathVariable-路径变量" class="headerlink" title="@PathVariable 路径变量"></a>@PathVariable 路径变量</h3><p>URL模板中的路径参数通过<code>@PathVariable</code>注解来获取，对应的参数处理器为<code>PathVariableMethodArgumentResolver</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/api/index/path/&#123;id&#125;/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">handlePathVariable</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id,</span></span><br><span class="line"><span class="params">                               <span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    LOGGER.info(<span class="string">&quot;路径参数: [&#123;&#125;], [&#123;&#125;]&quot;</span>, id, name);</span><br><span class="line">    <span class="keyword">return</span> String.join(<span class="string">&quot;:&quot;</span>, String.valueOf(id), name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>重要特性</strong>：<code>@PathVariable</code>的解析是按照value(name)属性进行匹配的，与URL参数的顺序无关。</p>
+<h3 id="MatrixVariable-矩阵变量"><a href="#MatrixVariable-矩阵变量" class="headerlink" title="@MatrixVariable 矩阵变量"></a>@MatrixVariable 矩阵变量</h3><p>矩阵变量是一种相对少用的URL参数类型，它通过<code>;</code>进行分隔，通过<code>=</code>进行键值设置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 访问示例: /call/doge;gender=male;group=programmer</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/call/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">handleMatrixVariable</span><span class="params">(<span class="meta">@PathVariable(value = &quot;name&quot;)</span> String name,</span></span><br><span class="line"><span class="params">                                 <span class="meta">@MatrixVariable(value = &quot;gender&quot;)</span> String gender,</span></span><br><span class="line"><span class="params">                                 <span class="meta">@MatrixVariable(value = &quot;group&quot;)</span> String group)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> String.format(<span class="string">&quot;name = %s, gender = %s, group = %s&quot;</span>, name, gender, group);</span><br><span class="line">    log.info(content);</span><br><span class="line">    <span class="keyword">return</span> content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>⚠️ 安全提醒</strong>：<code>@MatrixVariable</code>的使用被认为是不安全的，SpringMVC中默认关闭了对它的支持。要启用此功能，需要设置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configurePathMatch</span><span class="params">(PathMatchConfigurer configurer)</span> &#123;</span><br><span class="line">        configurer.setRemoveSemicolonContent(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Param参数-查询参数与表单数据"><a href="#3-Param参数-查询参数与表单数据" class="headerlink" title="3. Param参数 - 查询参数与表单数据"></a>3. Param参数 - 查询参数与表单数据</h2><h3 id="3-1-文件上传-RequestPart-MultipartFile"><a href="#3-1-文件上传-RequestPart-MultipartFile" class="headerlink" title="3.1 文件上传 - @RequestPart + MultipartFile"></a>3.1 文件上传 - @RequestPart + MultipartFile</h3><p>处理文件上传时，我们使用<code>@RequestPart</code>配合<code>MultipartFile</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Void&gt; <span class="title function_">handleFileUpload</span><span class="params">(<span class="meta">@RequestPart(&quot;file&quot;)</span> MultipartFile file)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> String.format(<span class="string">&quot;文件名 = %s, 原始名称 = %s, 大小 = %d字节&quot;</span>,</span><br><span class="line">                                 file.getName(),</span><br><span class="line">                                 file.getOriginalFilename(),</span><br><span class="line">                                 file.getSize());</span><br><span class="line">    LOGGER.info(content);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>简化写法</strong>：当参数名与表单中的name一致时，可以省略<code>@RequestPart</code>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/upload-simple&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Void&gt; <span class="title function_">handleSimpleUpload</span><span class="params">(MultipartFile file)</span> &#123;</span><br><span class="line">    <span class="comment">// 注意：参数名必须与POST表单中的Content-Disposition描述的name一致</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> String.format(<span class="string">&quot;文件名 = %s, 原始名称 = %s, 大小 = %d字节&quot;</span>,</span><br><span class="line">                                 file.getName(),</span><br><span class="line">                                 file.getOriginalFilename(),</span><br><span class="line">                                 file.getSize());</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-普通参数-RequestParam"><a href="#3-2-普通参数-RequestParam" class="headerlink" title="3.2 普通参数 - @RequestParam"></a>3.2 普通参数 - @RequestParam</h3><p>使用<code>@RequestParam</code>获取单个查询参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/search&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Example&gt; <span class="title function_">handleSearchParams</span><span class="params">(<span class="meta">@RequestParam(&quot;codeX&quot;)</span> Integer code,</span></span><br><span class="line"><span class="params">                                            <span class="meta">@RequestParam(&quot;code&quot;)</span> String codeStr)</span> &#123;</span><br><span class="line">    <span class="type">Example</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Example</span>();</span><br><span class="line">    example.setId(<span class="number">1L</span>);</span><br><span class="line">    example.setExampleTypeCode(String.join(<span class="string">&quot;_&quot;</span>, String.valueOf(code), codeStr));</span><br><span class="line">    example.setDescribe(<span class="string">&quot;这是一个参数绑定示例&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(example);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-对象绑定-自动参数映射"><a href="#3-3-对象绑定-自动参数映射" class="headerlink" title="3.3 对象绑定 - 自动参数映射"></a>3.3 对象绑定 - 自动参数映射</h3><p>SpringMVC支持自动将参数绑定到对象属性，这是最便捷的方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/user/profile&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Example&gt; <span class="title function_">handleObjectBinding</span><span class="params">(ExampleRequest request)</span> &#123;</span><br><span class="line">    <span class="type">Example</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Example</span>();</span><br><span class="line">    example.setId(<span class="number">1L</span>);</span><br><span class="line">    example.setExampleTypeCode(String.join(<span class="string">&quot;_&quot;</span>,</span><br><span class="line">                                          String.valueOf(request.getCode()),</span><br><span class="line">                                          request.getCodeX()));</span><br><span class="line">    example.setDescribe(<span class="string">&quot;自动对象绑定示例&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(example);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-表单数据-Map和MultiValueMap"><a href="#3-4-表单数据-Map和MultiValueMap" class="headerlink" title="3.4 表单数据 - Map和MultiValueMap"></a>3.4 表单数据 - Map和MultiValueMap</h3><p>对于动态表单数据，可以使用Map来接收：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/form-data&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Example&gt; <span class="title function_">handleFormData</span><span class="params">(<span class="meta">@RequestParam</span> Map&lt;String, String&gt; formData)</span> &#123;</span><br><span class="line">    <span class="type">Example</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Example</span>();</span><br><span class="line">    example.setId(<span class="number">1L</span>);</span><br><span class="line">    example.setExampleTypeCode(formData.get(<span class="string">&quot;code&quot;</span>));</span><br><span class="line">    example.setDescribe(<span class="string">&quot;Map参数绑定示例&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(example);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>处理多值参数时，使用<code>MultiValueMap</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/form-data/multi&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Example&gt; <span class="title function_">handleMultiValueData</span><span class="params">(<span class="meta">@RequestParam</span> MultiValueMap&lt;String, String&gt; formData)</span> &#123;</span><br><span class="line">    <span class="type">Example</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Example</span>();</span><br><span class="line">    example.setId(<span class="number">1L</span>);</span><br><span class="line">    <span class="comment">// MultiValueMap可以处理同一参数名对应多个值的情况</span></span><br><span class="line">    example.setExampleTypeCode(formData.get(<span class="string">&quot;code&quot;</span>).get(<span class="number">0</span>));</span><br><span class="line">    example.setDescribe(<span class="string">&quot;MultiValueMap参数绑定示例&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(example);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Header参数-请求头信息"><a href="#4-Header参数-请求头信息" class="headerlink" title="4. Header参数 - 请求头信息"></a>4. Header参数 - 请求头信息</h2><p>通过<code>@RequestHeader</code>注解获取请求头信息，参数处理器是<code>RequestHeaderMethodArgumentResolver</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/header-info&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Void&gt; <span class="title function_">handleHeaderInfo</span><span class="params">(<span class="meta">@RequestHeader(&quot;Connection&quot;)</span> String connection,</span></span><br><span class="line"><span class="params">                                        <span class="meta">@RequestHeader(&quot;User-Agent&quot;)</span> String userAgent,</span></span><br><span class="line"><span class="params">                                        HttpServletRequest request)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">customHeader</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;Custom-Header&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> String.format(<span class="string">&quot;Connection: [%s], User-Agent: [%s], Custom: [%s]&quot;</span>,</span><br><span class="line">                                 connection, userAgent, customHeader);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用请求头"><a href="#常用请求头" class="headerlink" title="常用请求头"></a>常用请求头</h3><ul>
+<li><code>Content-Type</code>：请求体的媒体类型</li>
+<li><code>Authorization</code>：认证信息</li>
+<li><code>User-Agent</code>：客户端信息</li>
+<li><code>Accept</code>：可接受的响应类型</li>
+<li><code>X-Requested-With</code>：标识Ajax请求</li>
+</ul>
+<h2 id="5-Cookie参数-状态管理"><a href="#5-Cookie参数-状态管理" class="headerlink" title="5. Cookie参数 - 状态管理"></a>5. Cookie参数 - 状态管理</h2><p>Cookie值通过<code>@CookieValue</code>注解获取，参数处理器为<code>ServletCookieValueMethodArgumentResolver</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/cookie-info&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResult&lt;Void&gt; <span class="title function_">handleCookieInfo</span><span class="params">(<span class="meta">@CookieValue(value = &quot;JSESSIONID&quot;, required = false)</span> String sessionId,</span></span><br><span class="line"><span class="params">                                        HttpServletRequest request)</span> &#123;</span><br><span class="line">    Cookie[] cookies = request.getCookies();</span><br><span class="line">    <span class="type">String</span> <span class="variable">cookieInfo</span> <span class="operator">=</span> Arrays.stream(cookies)</span><br><span class="line">        .map(c -&gt; c.getName() + <span class="string">&quot;=&quot;</span> + c.getValue())</span><br><span class="line">        .collect(Collectors.joining(<span class="string">&quot;, &quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> String.format(<span class="string">&quot;所有Cookie: [%s], JSESSIONID: [%s]&quot;</span>, cookieInfo, sessionId);</span><br><span class="line">    <span class="keyword">return</span> RestResult.buildSuccess(content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cookie使用建议"><a href="#Cookie使用建议" class="headerlink" title="Cookie使用建议"></a>Cookie使用建议</h3><ol>
+<li><strong>安全性</strong>：不要在Cookie中存储敏感信息</li>
+<li><strong>过期时间</strong>：合理设置Cookie的过期时间</li>
+<li><strong>作用域</strong>：限制Cookie的作用域和路径</li>
+<li><strong>HttpOnly</strong>：对重要Cookie设置HttpOnly标志</li>
+</ol>
+<h2 id="最佳实践总结"><a href="#最佳实践总结" class="headerlink" title="最佳实践总结"></a>最佳实践总结</h2><h3 id="1-选择合适的参数绑定方式"><a href="#1-选择合适的参数绑定方式" class="headerlink" title="1. 选择合适的参数绑定方式"></a>1. 选择合适的参数绑定方式</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JSON数据</td>
+<td><code>@RequestBody</code></td>
+<td>复杂数据结构，RESTful API</td>
+</tr>
+<tr>
+<td>路径参数</td>
+<td><code>@PathVariable</code></td>
+<td>资源标识，URL设计</td>
+</tr>
+<tr>
+<td>查询参数</td>
+<td>对象绑定</td>
+<td>表单数据，GET请求</td>
+</tr>
+<tr>
+<td>文件上传</td>
+<td><code>MultipartFile</code></td>
+<td>二进制数据</td>
+</tr>
+<tr>
+<td>请求头</td>
+<td><code>@RequestHeader</code></td>
+<td>元数据信息</td>
+</tr>
+<tr>
+<td>状态管理</td>
+<td><code>@CookieValue</code></td>
+<td>用户会话</td>
+</tr>
+</tbody></table>
+<h3 id="2-参数验证"><a href="#2-参数验证" class="headerlink" title="2. 参数验证"></a>2. 参数验证</h3><p>使用JSR-303验证注解确保数据的合法性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;?&gt; createUser(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserRequest request) &#123;</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok().build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-异常处理"><a href="#3-异常处理" class="headerlink" title="3. 异常处理"></a>3. 异常处理</h3><p>建立统一的参数异常处理机制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GlobalExceptionHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(MethodArgumentNotValidException.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;ErrorResponse&gt; <span class="title function_">handleValidationException</span><span class="params">(</span></span><br><span class="line"><span class="params">            MethodArgumentNotValidException ex)</span> &#123;</span><br><span class="line">        <span class="comment">// 处理参数验证异常</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(MissingServletRequestParameterException.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;ErrorResponse&gt; <span class="title function_">handleMissingParameter</span><span class="params">(</span></span><br><span class="line"><span class="params">            MissingServletRequestParameterException ex)</span> &#123;</span><br><span class="line">        <span class="comment">// 处理缺失参数异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安全考虑"><a href="#4-安全考虑" class="headerlink" title="4. 安全考虑"></a>4. 安全考虑</h3><ul>
+<li><strong>输入验证</strong>：始终验证用户输入</li>
+<li><strong>SQL注入防护</strong>：使用参数化查询</li>
+<li><strong>XSS防护</strong>：对输出进行编码</li>
+<li><strong>CSRF防护</strong>：使用CSRF Token</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>SpringMVC提供了丰富而强大的参数绑定机制，掌握了这些技术，我们就能优雅地处理各种HTTP请求场景。在实际开发中，选择合适的参数处理方式不仅能提高代码的可读性，还能提升应用的安全性和性能。</p>
+<p>希望本文能够帮助你更好地理解SpringMVC的参数绑定机制，在日常开发中能够灵活运用这些知识。记住，最好的技术方案永远是根据具体业务需求来选择的。</p>
+<hr>
+<p><strong>相关阅读：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc">SpringMVC官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://beanvalidation.org/2.0/spec/">JSR-303 Bean Validation规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7231">HTTP协议详解</a></li>
+</ul>
+<p><strong>讨论欢迎：</strong><br>如果你在SpringMVC参数处理方面有其他经验或疑问，欢迎在评论区留言讨论！</p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><a class="post-copyright__author_img" href="/about/"><img class="post-copyright__author_img_front" src="/image/touxiang.png"></a><div class="post-copyright__author_name">airtrioa's blog</div><div class="post-copyright__author_desc"></div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">airtrioa's blog</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringMVC/"><span class="tags-punctuation"></span>SpringMVC<span class="tagsPageCount">2</span></a><a class="post-meta__tags" href="/tags/Java-Web/"><span class="tags-punctuation"></span>Java Web<span class="tagsPageCount">1</span></a><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"><span class="tags-punctuation"></span>后端开发<span class="tagsPageCount">1</span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8d763507.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深入理解SpringBoot响应头设置与MIME类型配置</div></div></a></div><div class="next-post pull-right"><a href="/posts/ac06fb9e.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Cacheable缓存注解增强，添加缓存过期时间</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="author-info__top-group"><div class="author-info__sayhi" id="author-info__sayhi" onclick="sco.changeSayHelloText()">sayhello.morning</div></div></div><div class="avatar-img-group"><img class="avatar-img" alt="头像" src="/image/touxiang.png"><div class="avatar-sticker"><img class="avatar-sticker-img" src="https://7.isyangs.cn/34/65f2e4e0423cc-34.png" alt="心情贴纸"></div></div><div class="author-info__description_group"><div class="author-info__description">分享自己对编程的<b>热爱</b>，对美好生活的<b>向往</b>，对知识海洋<b>探索历程</b>。</div><div class="author-info__description2">相信你可以在这里找到对你有用的知识和教程。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" target="_blank" rel="noopener" href="https://github.com/AirTrioa"><div class="author-info__name">airtrioa</div><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude st-menu-line"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A"><span class="toc-text">SpringMVC请求参数全面解析：从入门到精通</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E4%BA%94%E5%A4%A7%E7%B1%BB%E5%9E%8B"><span class="toc-text">HTTP请求参数的五大类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Body%E5%8F%82%E6%95%B0-RequestBody"><span class="toc-text">1. Body参数 - @RequestBody</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">底层原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-URL%E5%8F%82%E6%95%B0-%E8%B7%AF%E5%BE%84%E5%8F%98%E9%87%8F"><span class="toc-text">2. URL参数 - 路径变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PathVariable-%E8%B7%AF%E5%BE%84%E5%8F%98%E9%87%8F"><span class="toc-text">@PathVariable 路径变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MatrixVariable-%E7%9F%A9%E9%98%B5%E5%8F%98%E9%87%8F"><span class="toc-text">@MatrixVariable 矩阵变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Param%E5%8F%82%E6%95%B0-%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0%E4%B8%8E%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE"><span class="toc-text">3. Param参数 - 查询参数与表单数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-RequestPart-MultipartFile"><span class="toc-text">3.1 文件上传 - @RequestPart + MultipartFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%99%AE%E9%80%9A%E5%8F%82%E6%95%B0-RequestParam"><span class="toc-text">3.2 普通参数 - @RequestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AF%B9%E8%B1%A1%E7%BB%91%E5%AE%9A-%E8%87%AA%E5%8A%A8%E5%8F%82%E6%95%B0%E6%98%A0%E5%B0%84"><span class="toc-text">3.3 对象绑定 - 自动参数映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE-Map%E5%92%8CMultiValueMap"><span class="toc-text">3.4 表单数据 - Map和MultiValueMap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Header%E5%8F%82%E6%95%B0-%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BF%A1%E6%81%AF"><span class="toc-text">4. Header参数 - 请求头信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="toc-text">常用请求头</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Cookie%E5%8F%82%E6%95%B0-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="toc-text">5. Cookie参数 - 状态管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookie%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="toc-text">Cookie使用建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93"><span class="toc-text">最佳实践总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F"><span class="toc-text">1. 选择合适的参数绑定方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8F%82%E6%95%B0%E9%AA%8C%E8%AF%81"><span class="toc-text">2. 参数验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">3. 异常处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91"><span class="toc-text">4. 安全考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude st-map-line"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/8d201072.html" title="SpringBoot启动时自动执行代码机制：从初始化到运行的完整流程"><img alt="SpringBoot启动时自动执行代码机制：从初始化到运行的完整流程" src="/img/default.avif"></a><div class="content"><a class="title" href="/posts/8d201072.html" title="SpringBoot启动时自动执行代码机制：从初始化到运行的完整流程">SpringBoot启动时自动执行代码机制：从初始化到运行的完整流程</a><a class="article-recent_post_categories" href="/posts/8d201072.html">技术分享</a></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9612f3c.html" title="拦截器与过滤器深度对比：SpringBoot中的请求处理机制"><img alt="拦截器与过滤器深度对比：SpringBoot中的请求处理机制" src="/img/default.avif"></a><div class="content"><a class="title" href="/posts/9612f3c.html" title="拦截器与过滤器深度对比：SpringBoot中的请求处理机制">拦截器与过滤器深度对比：SpringBoot中的请求处理机制</a><a class="article-recent_post_categories" href="/posts/9612f3c.html">技术分享</a></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b50f25b2.html" title="RestTemplate配置与使用完全指南：HTTP客户端的最佳实践"><img alt="RestTemplate配置与使用完全指南：HTTP客户端的最佳实践" src="/img/default.avif"></a><div class="content"><a class="title" href="/posts/b50f25b2.html" title="RestTemplate配置与使用完全指南：HTTP客户端的最佳实践">RestTemplate配置与使用完全指南：HTTP客户端的最佳实践</a><a class="article-recent_post_categories" href="/posts/b50f25b2.html">技术分享</a></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/970bc4b5.html" title="Feign声明式HTTP客户端完全指南：从入门到精通"><img alt="Feign声明式HTTP客户端完全指南：从入门到精通" src="/img/default.avif"></a><div class="content"><a class="title" href="/posts/970bc4b5.html" title="Feign声明式HTTP客户端完全指南：从入门到精通">Feign声明式HTTP客户端完全指南：从入门到精通</a><a class="article-recent_post_categories" href="/posts/970bc4b5.html">技术分享</a></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/79b53655.html" title="SpringBoot外部化配置权威指南：从原理到实践"><img alt="SpringBoot外部化配置权威指南：从原理到实践" src="/img/default.avif"></a><div class="content"><a class="title" href="/posts/79b53655.html" title="SpringBoot外部化配置权威指南：从原理到实践">SpringBoot外部化配置权威指南：从原理到实践</a><a class="article-recent_post_categories" href="/posts/79b53655.html">技术分享</a></div></div></div></div></div></div></main><footer id="footer"><div id="footer_deal"></div><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2021 - 2025 By&nbsp;<a class="footer-bar-link" href="/">airtrioa</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" alt="主题">主题</a><a class="footer-bar-link cc" href="/null" aria-label="copyright"><i class="solitude st-copyright-line"></i><i class="solitude st-creative-commons-by-line"></i><i class="solitude st-creative-commons-nc-line"></i><i class="solitude st-creative-commons-nd-line"></i></a></div></div></div></footer></div><!-- right_menu--><!-- inject body--><div><script src="/js/utils.js?v=1.12.2"></script><script src="/js/main.js?v=1.12.2"></script><script src="/js/third_party/waterfall.min.js?v=1.12.2"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js"></script><script src="/js/third_party/universe.min.js?v=1.12.2"></script><script>dark()
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div class="js-pjax"></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ['title','#body-wrap','#site-config','meta[name="description"]','.js-pjax','meta[property^="og:"]','#config-diff'],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- google adsense--><!-- search--><!-- Tianli-Talk--><!-- music--></body></html><script>const posts=["posts/8d201072.html","posts/9612f3c.html","posts/b50f25b2.html","posts/970bc4b5.html","posts/79b53655.html","posts/69475b60.html","posts/c07e5ade.html","posts/e657fe1f.html","posts/8d763507.html","posts/5442ff04.html","posts/ac06fb9e.html","posts/e306631.html","posts/ecd3deff.html","posts/4a17b156.html"];function toRandomPost(){ pjax.loadUrl('/'+posts[Math.floor(Math.random()*posts.length)]); }</script>
